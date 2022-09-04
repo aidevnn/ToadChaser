@@ -99,7 +99,7 @@ and
 var sg = TableOps.CreateHeader("a", "cbc-1");
 var rels = TableOps.CreateHeader("a3", "b2", "c5", "abc");
 
-var tOps = new TableOps(sg2, rels);
+var tOps = new TableOps(sg, rels);
 tOps.ToddCoxeter();
 ```
 will output
