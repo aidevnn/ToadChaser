@@ -4,6 +4,24 @@ namespace TC;
 public static class TableOpsExt
 {
     static Stopwatch sw = Stopwatch.StartNew();
+
+    public static string Relator(string relation)
+    {
+        var word = Word.Empty;
+        var split = relation.Split('=');
+        if (split.Length == 1)
+            word = new(relation);
+        else if (split.Length == 2)
+        {
+            var w0 = new Word(split[0]);
+            var w1 = new Word(split[1]);
+            word = new(w0.ToString() + w1.Invert().ToString());
+        }
+        else
+            throw new Exception();
+
+        return word.extStr;
+    }
     public static TableOps ApplyOp(this TableOps tOps, Op op)
     {
         var tOps0 = new TableOps(tOps);

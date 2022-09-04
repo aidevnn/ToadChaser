@@ -12,7 +12,10 @@ var sg3 = TableOps.CreateHeader("y");
 // var rels = TableOps.CreateHeader("a4", "b3", "abab");
 // var rels = TableOps.CreateHeader("a4", "b4", "a2b2", "aba-1b-1");
 // var rels = TableOps.CreateHeader("a8", "b4", "a2b2", "aba-1b-1");
-var rels = TableOps.CreateHeader("a3", "b2", "c5", "abc");
+// var rels = TableOps.CreateHeader("a3", "b2", "c5", "abc");
+// var rels = TableOps.CreateHeader("a5", "b4", "ab=ba");
+// var rels = TableOps.CreateHeader("a2", "b2", "c2", "d2", "ababab", "bcbcbc", "cdcdcd", "acac", "adad", "bdbd"); // S5
+var rels = TableOps.CreateHeader("y", "a5", "b4", "c2", "ab=ba", "acac", "bcbc");
 
 // var rels = TableOps.CreateHeader("y", "a4", "b3", "abab");
 // var rels = TableOps.CreateHeader("y", "a5", "b4", "abababab", "a2ba-1b-1"); // F20
@@ -21,5 +24,5 @@ var rels = TableOps.CreateHeader("a3", "b2", "c5", "abc");
 
 // var rels = TableOps.CreateHeader("y", "b2", "c5", "cbc-1");
 
-var tOps = new TableOps(sg2, rels);
+var tOps = new TableOps(sg3, rels);
 tOps.ToddCoxeter();
