@@ -1,5 +1,5 @@
 # ToadChaser
-Todd Coxeter Algorithm in CSharp for generating Cosets classes for a Subgroup H of a finitely presented group G by generators and relators.
+Todd Coxeter Algorithm in CSharp for generating Cosets classes for a Subgroup H of a finitely presented group G by generators and relators. (in progress)
 
 By convention x^-1 is denoted X, uppercase character means the invert.
 Example :
@@ -247,3 +247,11 @@ will output
 
 ####     End    ####
 ```
+## Another example
+
+![(S5/S3)r](s5_s3.png)
+
+
+## References
+
+[Brown, Ken. The Todd-Coxeter procedure](http://www.math.cornell.edu/~kbrown/7350/toddcox.pdf)
