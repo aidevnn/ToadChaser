@@ -34,7 +34,15 @@ public class SubGroupTable
         Console.WriteLine("# SubGroup table");
         Console.WriteLine(header.Display(digits));
         var strLine = line.Display(digits);
-        Console.WriteLine(Enumerable.Repeat('−', strLine.Length).Glue());
+        // Console.WriteLine(Enumerable.Repeat('⎺', strLine.Length).Glue()); //
+        var s1 = Enumerable.Repeat('─', strLine.Length).Glue().ToArray();
+        foreach (var k in header.Separators)
+            s1[(digits + 1) * k] = s1[(digits + 1) * (k + 1)] = '┬';
+
+
+        s1[0] = '┌';
+        s1[s1.Length - 1] = '┐';
+        Console.WriteLine(s1.Glue());
         Console.WriteLine(strLine);
         Console.WriteLine();
     }

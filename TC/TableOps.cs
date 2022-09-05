@@ -99,11 +99,11 @@ public class TableOps
 
         var sgOp = sgTable.GetOps().FirstOrDefault(op => op.i != Symbol.Unknown && op.g != Generator.Unknown && op.j == Symbol.Unknown);
         if (sgOp.i != Symbol.Unknown && sgOp.g != Generator.Unknown && sgOp.j == Symbol.Unknown)
-            return sgOp.g.sgn == 1 ? new Op(sgOp.i, sgOp.g, j) : new Op(sgOp.i, sgOp.g, j).Invert();
+            return new Op(sgOp.i, sgOp.g, j);
 
         var rOp = rTable.GetOps().FirstOrDefault(op => op.i != Symbol.Unknown && op.g != Generator.Unknown && op.j == Symbol.Unknown);
         if (rOp.i != Symbol.Unknown && rOp.g != Generator.Unknown && rOp.j == Symbol.Unknown)
-            return rOp.g.sgn == 1 ? new Op(rOp.i, rOp.g, j) : new Op(rOp.i, rOp.g, j).Invert();
+            return new Op(rOp.i, rOp.g, j);
 
         return new();
     }
@@ -121,18 +121,19 @@ public class TableOps
         var gens = opsTable.Keys.Select(k => k.g).Distinct().Ascending();
         var symbs = opsTable.Keys.Select(k => k.i).Distinct().Ascending();
 
-        var head = string.Format(fmt, "") + "|" + gens.Glue("|", fmt) + "|";
-        var line = Enumerable.Range(0, head.Length).Select(i => i % (digits + 2) == digits + 1 ? '|' : '−').Glue();
+        var head = string.Format(fmt, "") + "│" + gens.Glue("│", fmt) + "│";
+        var line = Enumerable.Range(0, head.Length).Select(i => i % (digits + 2) == digits + 1 ? (i == head.Length - 1 ? '┤' : '┼') : '─').Glue();
+
         var rows = new List<string>();
         foreach (var i in symbs)
         {
-            var r = gens.Select(g => TableFind(new(i, g))).Prepend(i.ToString()).Glue("|", fmt);
+            var r = gens.Select(g => TableFind(new(i, g))).Prepend(i.ToString()).Glue("│", fmt);
             rows.Add(r);
         }
 
         Console.WriteLine(head);
         Console.WriteLine(line);
-        rows.ForEach(r => Console.WriteLine(r + "|"));
+        rows.ForEach(r => Console.WriteLine(r + "│"));
         Console.WriteLine();
     }
     public void Display()

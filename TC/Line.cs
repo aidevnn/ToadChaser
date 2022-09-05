@@ -102,7 +102,7 @@ public class Line
         var s0 = row.Glue("", fmt);
         var s1 = (s0 + " ").ToArray();
         foreach (var k in header.Separators)
-            s1[(digits + 1) * k] = s1[(digits + 1) * (k + 1)] = '|';
+            s1[(digits + 1) * k] = s1[(digits + 1) * (k + 1)] = '│';
 
         var s2 = s1.Glue();
         return s2;
