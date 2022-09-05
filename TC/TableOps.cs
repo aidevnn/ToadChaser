@@ -122,18 +122,22 @@ public class TableOps
         var symbs = opsTable.Keys.Select(k => k.i).Distinct().Ascending();
 
         var head = string.Format(fmt, "") + "│" + gens.Glue("│", fmt) + "│";
-        var line = Enumerable.Range(0, head.Length).Select(i => i % (digits + 2) == digits + 1 ? (i == head.Length - 1 ? '┤' : '┼') : '─').Glue();
+        var lineTop = Enumerable.Range(0, head.Length - (digits + 2)).Select(i => i % (digits + 2) == digits + 1 ? (i == head.Length - digits - 3 ? '┐' : '┬') : '─').Glue();
+        var lineMid = Enumerable.Range(0, head.Length).Select(i => i % (digits + 2) == digits + 1 ? (i == head.Length - 1 ? '┤' : '┼') : '─').Glue();
+        var lineEnd = Enumerable.Range(0, head.Length).Select(i => i % (digits + 2) == digits + 1 ? (i == head.Length - 1 ? '┘' : '┴') : '─').Glue();
 
         var rows = new List<string>();
         foreach (var i in symbs)
         {
             var r = gens.Select(g => TableFind(new(i, g))).Prepend(i.ToString()).Glue("│", fmt);
-            rows.Add(r);
+            rows.Add(r.Glue());
         }
 
-        Console.WriteLine(head);
-        Console.WriteLine(line);
-        rows.ForEach(r => Console.WriteLine(r + "│"));
+        Console.WriteLine(" " + string.Format(fmt, "") + "┌" + lineTop);
+        Console.WriteLine(" " + head);
+        Console.WriteLine("┌" + lineMid);
+        rows.ForEach(r => Console.WriteLine("│" + r + "│"));
+        Console.WriteLine("└" + lineEnd);
         Console.WriteLine();
     }
     public void Display()

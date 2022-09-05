@@ -42,18 +42,15 @@ public class RelatorsTable
     public void Display(int digits)
     {
         Console.WriteLine("# Relators table");
-        Console.WriteLine(header.Display(digits));
-        var strLine = table.First().Value.Display(digits);
-        var s1 = Enumerable.Repeat('─', strLine.Length).Glue().ToArray();
-        foreach (var k in header.Separators)
-            s1[(digits + 1) * k] = s1[(digits + 1) * (k + 1)] = '┬';
-
-        s1[0] = '┌';
-        s1[s1.Length - 1] = '┐';
-        Console.WriteLine(s1.Glue());
+        header.DisplayHead(digits);
+        int k = 0;
         foreach (var kv in table.OrderBy(p => p.Key))
+        {
+            if (k > 0 && k % 40 == 0) header.ReDisplayHead(digits);
             Console.WriteLine(kv.Value.Display(digits));
-
+            ++k;
+        }
+        header.DisplayLineUp(digits);
         Console.WriteLine();
     }
 }

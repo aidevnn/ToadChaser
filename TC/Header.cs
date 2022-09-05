@@ -33,5 +33,35 @@ public class Header : IEnumerable<Generator>
         var fmt = $"{{0,{digits + 1}}}";
         return " " + head.Glue("", fmt);
     }
+    public void DisplayLineUp(int digits)
+    {
+        var s1 = Enumerable.Repeat('─', (digits + 1) * (head.Count + 1)).Append(' ').Glue().ToArray();
+        foreach (var k in Separators)
+            s1[(digits + 1) * k] = s1[(digits + 1) * (k + 1)] = '┴';
+
+        s1[0] = '└';
+        s1[s1.Length - 1] = '┘';
+        Console.WriteLine(s1.Glue());
+    }
+    public void DisplayLineDown(int digits)
+    {
+        var s1 = Enumerable.Repeat('─', (digits + 1) * (head.Count + 1)).Append(' ').Glue().ToArray();
+        foreach (var k in Separators)
+            s1[(digits + 1) * k] = s1[(digits + 1) * (k + 1)] = '┬';
+
+        s1[0] = '┌';
+        s1[s1.Length - 1] = '┐';
+        Console.WriteLine(s1.Glue());
+    }
+    public void DisplayHead(int digits)
+    {
+        Console.WriteLine(Display(digits));
+        DisplayLineDown(digits);
+    }
+    public void ReDisplayHead(int digits)
+    {
+        DisplayLineUp(digits);
+        DisplayHead(digits);
+    }
     public override string ToString() => "  " + head.Glue(" ");
 }
