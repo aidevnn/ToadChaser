@@ -18,21 +18,26 @@ public class RelatorsTable
     Line NewLine(Symbol s) => new(s, header);
     public IEnumerable<Op> GetOps() => table.SelectMany(kv => kv.Value.GetOps());
     public int CountUnknown => table.Sum(r => r.Value.CountUnknown);
-    public void ApplyOp(Op op)
+    public void ApplyOp(SortedDictionary<OpKey, Symbol> opsTable)
     {
-        var containsOPi = table.ContainsKey(op.i);
-        var containsOPj = table.ContainsKey(op.j);
-        if (!containsOPi && !containsOPj)
-            throw new Exception($"op");
-
-        if (!containsOPi)
-            table[op.i] = NewLine(op.i);
-
-        if (!containsOPj)
-            table[op.j] = NewLine(op.j);
+        var symbols = opsTable.Values.Distinct().Ascending();
+        foreach (var s in symbols)
+        {
+            if (!table.ContainsKey(s))
+                table[s] = NewLine(s);
+        }
 
         foreach (var kv in table)
+            kv.Value.ApplyOp(opsTable);
+    }
+    public void ApplyOp(Op op)
+    {
+        var opi = op.Invert();
+        foreach (var kv in table)
+        {
             kv.Value.ApplyOp(op);
+            kv.Value.ApplyOp(opi);
+        }
     }
     public void Display(int digits)
     {

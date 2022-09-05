@@ -7,20 +7,6 @@ public struct Op : IEquatable<Op>
     public Generator g { get; }
     public Symbol j { get; }
     int hash { get; }
-    public Op(Symbol i0, Generator g0)
-    {
-        i = i0;
-        g = g0;
-        j = Symbol.Unknown;
-        hash = HashCode.Combine(i, g, j);
-    }
-    public Op(Generator g0, Symbol j0)
-    {
-        i = Symbol.Unknown;
-        g = g0;
-        j = j0;
-        hash = HashCode.Combine(i, g, j);
-    }
     public Op(Symbol i0, Generator g0, Symbol j0)
     {
         i = i0;

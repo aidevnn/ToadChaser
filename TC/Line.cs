@@ -32,6 +32,39 @@ public class Line
                 row[k] = s1;
         }
     }
+    public void ApplyOp(SortedDictionary<OpKey, Symbol> opsTable)
+    {
+        for (int k = 0; k < header.Count; ++k)
+        {
+            var i = row[k];
+            var g = header[k];
+            var j = row[k + 1];
+            if (i == Symbol.Unknown && j == Symbol.Unknown)
+                continue;
+            else if (i != Symbol.Unknown && j != Symbol.Unknown)
+            {
+                var opKey = new OpKey(i, g);
+                var opiKey = new OpKey(j, g.Invert());
+                if (opsTable.ContainsKey(opKey) && opsTable[opKey] != j)
+                    throw new Exception("TO DO");
+
+                if (opsTable.ContainsKey(opiKey) && opsTable[opiKey] != i)
+                    throw new Exception("TO DO");
+            }
+            else if (j == Symbol.Unknown)
+            {
+                var opKey = new OpKey(i, g);
+                if (opsTable.ContainsKey(opKey))
+                    row[k + 1] = opsTable[opKey];
+            }
+            else // if (i == Symbol.Unknown)
+            {
+                var opiKey = new OpKey(j, g.Invert());
+                if (opsTable.ContainsKey(opiKey))
+                    row[k] = opsTable[opiKey];
+            }
+        }
+    }
     public void ApplyOp(Op op)
     {
         if (op.i == Symbol.Unknown || op.j == Symbol.Unknown || op.g == Generator.Unknown)
