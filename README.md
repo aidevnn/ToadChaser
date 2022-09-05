@@ -249,7 +249,7 @@ will output
 ```
 ## Another example
 
-![(S5/S3)r](s5_s3.png)
+![(S5/S3)r](s5_over_s3.png)
 
 
 ## References
