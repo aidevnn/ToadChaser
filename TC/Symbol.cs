@@ -18,7 +18,7 @@ public struct Symbol : IEquatable<Symbol>, IComparable<Symbol>
     }
     public int CompareTo(Symbol other) => Value.CompareTo(other.Value);
     public override int GetHashCode() => Value;
-    public override string ToString() => Value == 0 ? "?" : $"{Value}";
+    public override string ToString() => Value == 0 ? " " : $"{Value}";
 
     public static Symbol Min(Symbol a, Symbol b) => a.CompareTo(b) <= 0 ? a : b;
     public static Symbol Max(Symbol a, Symbol b) => a.CompareTo(b) >= 0 ? a : b;
