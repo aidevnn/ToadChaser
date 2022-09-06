@@ -116,11 +116,15 @@ will output
 ![(S5/S3)r](s5_over_s3.png)
 
 ## More Complex example
-Lets study an example of Ken Brown paper : \
-The group $G=\langle a,b,c \ | \ a^3=b^2=c^2=(ab)^4=(ac)^2=(bc)^3 \rangle $ \
-over the subgroup $H=\langle a,b \rangle$ \
-\
-First for $H$ we will compute cosets for $(H/\langle a \rangle)_r$
+
+Lets study an example of Ken Brown paper :
+
+The group $G=\langle a,b,c \ | \ a^3=b^2=c^2=(ab)^4=(ac)^2=(bc)^3 \rangle $ 
+
+over the subgroup $H=\langle a,b \rangle$ 
+
+First for $H$ we will compute cosets for $(H/ \langle a \rangle )_r$
+
 ```
 var sg = TableOps.CreateHeader("a");
 var rels = TableOps.CreateHeader("a3", "b2", "abababab");
@@ -166,9 +170,14 @@ will output
 
 ####     End    ####
 ```
-Then $|H|=3 \times 8=24$ \
-and \
-now lets compute cosets for $(G/H)_r$
+
+Then $|H|=3 \times 8=24$ 
+
+and
+
+now lets compute cosets for $(G/H)_r$ 
+<br>
+
 ```
 var sg = TableOps.CreateHeader("a", "b");
 var rels = TableOps.CreateHeader("a3", "b2", "c2", "abababab", "bcbcbc", "acac");
