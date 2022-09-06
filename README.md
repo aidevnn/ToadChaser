@@ -116,7 +116,7 @@ will output
 ![(S5/S3)r](s5_over_s3.png)
 
 ## More Complex example
-Let try to study of example of Ken Brown paper : \
+Lets study an example of Ken Brown paper : \
 The group $G=\langle a,b,c \ | \ a^3=b^2=c^2=(ab)^4=(ac)^2=(bc)^3 \rangle $ \
 over the subgroup $H=\langle a,b \rangle$ \
 \
