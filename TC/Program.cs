@@ -1,7 +1,7 @@
 ﻿using TC;
 
 // var sg = TableOps.CreateHeader("a");
-var sg = TableOps.CreateHeader("a", "b");
+// var sg = TableOps.CreateHeader("a", "b");
 // var sg = TableOps.CreateHeader("b");
 // var sg = TableOps.CreateHeader("a", "cbc-1");
 
@@ -15,7 +15,9 @@ var sg = TableOps.CreateHeader("a", "b");
 // var rels = TableOps.CreateHeader("a2", "b8", "a2b-2", "aba-1b");
 // var rels = TableOps.CreateHeader("a5", "b4", "ab=ba");
 // var rels = TableOps.CreateHeader("a2", "b2", "c2", "bcbcbc", "acacac", "abab"); // S4
-var rels = TableOps.CreateHeader("a2", "b2", "c2", "d2", "ababab", "bcbcbc", "cdcdcd", "acac", "adad", "bdbd"); // S5
+// var rels = TableOps.CreateHeader("a3", "b2", "abababab");
+// var rels = TableOps.CreateHeader("a3", "b2", "c2", "abababab", "bcbcbc", "acac");
+// var rels = TableOps.CreateHeader("a2", "b2", "c2", "d2", "ababab", "bcbcbc", "cdcdcd", "acac", "adad", "bdbd"); // S5
 
 // var sg = TableOps.CreateHeader("y");
 // var rels = TableOps.CreateHeader("y", "b2", "c5", "cbc-1"); // TO DO
@@ -25,5 +27,13 @@ var rels = TableOps.CreateHeader("a2", "b2", "c2", "d2", "ababab", "bcbcbc", "cd
 // var rels = TableOps.CreateHeader("y", "a2", "b2", "c2", "bcbcbc", "acacac", "abab"); // S4
 // var rels = TableOps.CreateHeader("y", "a2", "b2", "c2", "d2", "ababab", "bcbcbc", "cdcdcd", "acac", "adad", "bdbd"); // S5
 
+// var sg = TableOps.CreateHeader("a");
+// var rels = TableOps.CreateHeader("a3", "b2", "abababab");
+// var tOps = new TableOps(sg, rels);
+// tOps.ToddCoxeter();
+
+var sg = TableOps.CreateHeader("a", "b");
+var rels = TableOps.CreateHeader("a3", "b2", "c2", "abababab", "bcbcbc", "acac");
 var tOps = new TableOps(sg, rels);
 tOps.ToddCoxeter();
+
