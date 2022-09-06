@@ -247,7 +247,7 @@ will output
 ####     End    ####
 ```
 
-Finally, $|G| = 24 \times 24 = 576$
+Finally, $|G| = 3 \times  8 \times 24 = 576$
 
 <br><br><br>
 
