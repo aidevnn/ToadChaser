@@ -2,7 +2,9 @@
 Todd Coxeter Algorithm in CSharp for generating Cosets classes for a Subgroup H of a finitely presented group G by generators and relators. (in progress)
 
 By convention x^-1 is denoted X, uppercase character means the invert.
-Example :
+
+## First example
+
 ```
 var sg = TableOps.CreateHeader("a");
 var rels = TableOps.CreateHeader("a3", "b3", "abab");
