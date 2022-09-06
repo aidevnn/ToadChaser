@@ -1,16 +1,12 @@
 # ToadChaser
-Todd Coxeter Algorithm in CSharp for generating Cosets classes for a Subgroup H of a finitely presented group G by generators and relators. (in progress)
+Todd Coxeter Algorithm in CSharp for generating Cosets classes for a Subgroup H of a finitely presented group G by generators and relators.
 
 By convention x^-1 is denoted X, uppercase character means the invert.
 
 ## First example
 
 ```
-var sg = TableOps.CreateHeader("a");
-var rels = TableOps.CreateHeader("a3", "b3", "abab");
-
-var tOps = new TableOps(sg, rels);
-tOps.ToddCoxeter();
+TableOpsExt.ToddCoxeter("a", "a3, b3, abab");
 ```
 will output
 ```
@@ -128,10 +124,7 @@ over the subgroup $H=\langle a,b \rangle$
 First for $H$ we will compute cosets for $(H/ \langle a \rangle )_r$
 
 ```
-var sg = TableOps.CreateHeader("a");
-var rels = TableOps.CreateHeader("a3", "b2", "abababab");
-var tOps = new TableOps(sg, rels);
-tOps.ToddCoxeter();
+TableOpsExt.ToddCoxeter("a", "a3, b2, abababab");
 ```
 will output
 ```
@@ -181,10 +174,7 @@ now lets compute cosets for $(G/H)_r$
 <br>
 
 ```
-var sg = TableOps.CreateHeader("a", "b");
-var rels = TableOps.CreateHeader("a3", "b2", "c2", "abababab", "bcbcbc", "acac");
-var tOps = new TableOps(sg, rels);
-tOps.ToddCoxeter();
+TableOpsExt.ToddCoxeter("a, b", "a3, b2, c2, abababab, bcbcbc, acac");
 ```
 will output
 ```

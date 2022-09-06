@@ -5,6 +5,15 @@ public static class TableOpsExt
 {
     static Stopwatch sw = Stopwatch.StartNew();
 
+    public static TableOps ToddCoxeter(string sg, string rels)
+    {
+        var sg0 = TableOps.CreateHeader(sg.Split(',', StringSplitOptions.TrimEntries));
+        var rels0 = TableOps.CreateHeader(rels.Split(',', StringSplitOptions.TrimEntries));
+        var tops = new TableOps(sg0, rels0);
+        tops.ToddCoxeter();
+        return tops;
+    }
+
     public static void ToddCoxeter(this TableOps tableOps)
     {
         sw.Restart();
@@ -24,7 +33,6 @@ public static class TableOpsExt
 
             Console.WriteLine($"#### Step {k++} Op : {op} ####");
 
-            var opi = op.Invert();
             tOps = new(tOps);
             tOps.ApplyOp(op);
             tOps.BuildTable();

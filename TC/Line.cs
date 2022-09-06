@@ -19,20 +19,22 @@ public class Line
         row = line.row.Select(s => s).ToArray();
         Key = line.Key;
     }
+    public Line(Symbol key, Line line)
+    {
+        header = line.header;
+        row = line.row.Select(s => s).ToArray();
+        Key = key;
+    }
     public int CountUnknown => row.Count(s => s == Symbol.Unknown);
-    public bool IsComplete() => row.All(r => r != Symbol.Unknown);
     public void Subtitute(Symbol s0, Symbol s1)
     {
-        if (s0 == Key)
-            throw new Exception();
-
         for (int k = 0; k < row.Length; ++k)
         {
-            if (row[k] == s0)
-                row[k] = s1;
+            if (row[k] == s1)
+                row[k] = s0;
         }
     }
-    public void ApplyOp(SortedDictionary<OpKey, Symbol> opsTable)
+    public (Symbol, Symbol) ApplyOp(SortedDictionary<OpKey, Symbol> opsTable, HashSet<Op> newOps)
     {
         for (int k = 0; k < header.Count; ++k)
         {
@@ -45,11 +47,17 @@ public class Line
             {
                 var opKey = new OpKey(i, g);
                 var opiKey = new OpKey(j, g.Invert());
-                if (opsTable.ContainsKey(opKey) && opsTable[opKey] != j)
-                    throw new Exception("TO DO");
+                var opCheck = opsTable.ContainsKey(opKey);
+                var opiCheck = opsTable.ContainsKey(opiKey);
 
-                if (opsTable.ContainsKey(opiKey) && opsTable[opiKey] != i)
-                    throw new Exception("TO DO");
+                if (opCheck && opsTable[opKey] != j)
+                    return Symbol.MinMax(j, opsTable[opKey]);
+
+                if (opiCheck && opsTable[opiKey] != i)
+                    return Symbol.MinMax(i, opsTable[opiKey]);
+
+                if (!opCheck && !opiCheck)
+                    newOps.Add(Op.Create(i, g, j));
             }
             else if (j == Symbol.Unknown)
             {
@@ -64,35 +72,8 @@ public class Line
                     row[k] = opsTable[opiKey];
             }
         }
-    }
-    public void ApplyOp(Op op)
-    {
-        if (op.i == Symbol.Unknown || op.j == Symbol.Unknown || op.g == Generator.Unknown)
-            return;
 
-        for (int k = 0; k < header.Count; ++k)
-        {
-            var g = header[k];
-            if (g != op.g)
-                continue;
-
-            var i = row[k];
-            var j = row[k + 1];
-            if (i == op.i)
-            {
-                if (j == Symbol.Unknown)
-                    row[k + 1] = op.j;
-                else if (j != op.j)
-                    throw new Exception($"{op} ? {new Op(i, g, j)}");
-            }
-            else if (j == op.j)
-            {
-                if (i == Symbol.Unknown)
-                    row[k] = op.i;
-                else if (i != op.i)
-                    throw new Exception($"{op} ? {new Op(i, g, j)}");
-            }
-        }
+        return new();
     }
     public IEnumerable<Op> GetOps() => header.Select((g, k) => new Op(row[k], g, row[k + 1]));
     public Symbol Key { get; }

@@ -15,20 +15,12 @@ public class SubGroupTable
         line = new(sgtable.line);
     }
     public int CountUnknown => line.CountUnknown;
-    public bool IsComplete() => line.IsComplete();
     public void Subtitute(Symbol s0, Symbol s1) => line.Subtitute(s0, s1);
     public IEnumerable<Op> GetOps() => line.GetOps();
-    public void ApplyOp(SortedDictionary<OpKey, Symbol> opsTable)
+    public (Symbol, Symbol) ApplyOp(SortedDictionary<OpKey, Symbol> opsTable, HashSet<Op> newOps)
     {
-        line.ApplyOp(opsTable);
+        return line.ApplyOp(opsTable, newOps);
     }
-    public void ApplyOp(Op op)
-    {
-        var opi = op.Invert();
-        line.ApplyOp(op);
-        line.ApplyOp(opi);
-    }
-
     public void Display(int digits)
     {
         Console.WriteLine("# SubGroup table");

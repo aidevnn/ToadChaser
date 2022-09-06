@@ -15,10 +15,32 @@ public class RelatorsTable
         header = rTable.header;
         table = rTable.table.ToDictionary(s => s.Key, l => new Line(l.Value));
     }
+    public bool ContainsKey(Symbol s) => table.ContainsKey(s);
     Line NewLine(Symbol s) => new(s, header);
     public IEnumerable<Op> GetOps() => table.SelectMany(kv => kv.Value.GetOps());
     public int CountUnknown => table.Sum(r => r.Value.CountUnknown);
-    public void ApplyOp(SortedDictionary<OpKey, Symbol> opsTable)
+    public void Remove(Symbol s) => table.Remove(s);
+    public void SubtituteRemove(Symbol s0, Symbol s1)
+    {
+        table.Remove(s1);
+        foreach (var e in table)
+            e.Value.Subtitute(s0, s1);
+    }
+    public void SubtituteWithKey(Symbol s0, Symbol s1)
+    {
+        if (!table.ContainsKey(s0))
+        {
+            var line = table[s1];
+            table[s0] = new(s0, line);
+            table.Remove(s1);
+        }
+        else
+            throw new Exception("TO DO");
+
+        foreach (var e in table)
+            e.Value.Subtitute(s0, s1);
+    }
+    public (Symbol, Symbol) ApplyOp(SortedDictionary<OpKey, Symbol> opsTable, HashSet<Op> newOps)
     {
         var symbols = opsTable.Values.Distinct().Ascending();
         foreach (var s in symbols)
@@ -28,16 +50,13 @@ public class RelatorsTable
         }
 
         foreach (var kv in table)
-            kv.Value.ApplyOp(opsTable);
-    }
-    public void ApplyOp(Op op)
-    {
-        var opi = op.Invert();
-        foreach (var kv in table)
         {
-            kv.Value.ApplyOp(op);
-            kv.Value.ApplyOp(opi);
+            var err = kv.Value.ApplyOp(opsTable, newOps);
+            if (err.Item1 != Symbol.Unknown)
+                return err;
         }
+
+        return new();
     }
     public void Display(int digits)
     {

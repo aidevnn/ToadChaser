@@ -1,39 +1,15 @@
 ﻿using TC;
 
-// var sg = TableOps.CreateHeader("a");
-// var sg = TableOps.CreateHeader("a", "b");
-// var sg = TableOps.CreateHeader("b");
-// var sg = TableOps.CreateHeader("a", "cbc-1");
+// TableOpsExt.ToddCoxeter("a", "a3, b3, abab");
+// TableOpsExt.ToddCoxeter("a", "a4, b3, abab");
 
-// var rels = TableOps.CreateHeader("a3", "b3", "abab");
-// var rels = TableOps.CreateHeader("a4", "b3", "abab");
-// var rels = TableOps.CreateHeader("a4", "b2", "abab");
-// var rels = TableOps.CreateHeader("a3", "b2", "c5", "abc");
-// var rels = TableOps.CreateHeader("a2", "b3", "c5", "abc");
-// var rels = TableOps.CreateHeader("a4", "a2b-2", "b-1aba");
-// var rels = TableOps.CreateHeader("a2", "b3", "c4", "ab = ba", "bc = cb", "acacac");
-// var rels = TableOps.CreateHeader("a2", "b8", "a2b-2", "aba-1b");
-// var rels = TableOps.CreateHeader("a5", "b4", "ab=ba");
-// var rels = TableOps.CreateHeader("a2", "b2", "c2", "bcbcbc", "acacac", "abab"); // S4
-// var rels = TableOps.CreateHeader("a3", "b2", "abababab");
-// var rels = TableOps.CreateHeader("a3", "b2", "c2", "abababab", "bcbcbc", "acac");
-// var rels = TableOps.CreateHeader("a2", "b2", "c2", "d2", "ababab", "bcbcbc", "cdcdcd", "acac", "adad", "bdbd"); // S5
+// TableOpsExt.ToddCoxeter("a, cbc-1", "a3, b2, c5, abc");
 
-// var sg = TableOps.CreateHeader("y");
-// var rels = TableOps.CreateHeader("y", "b2", "c5", "cbc-1"); // TO DO
-// var rels = TableOps.CreateHeader("y", "a5", "b8", "c2", "ab=ba", "acac", "bcbc");
-// var rels = TableOps.CreateHeader("y", "a4", "b3", "abab");
-// var rels = TableOps.CreateHeader("a5", "b4", "abababab", "a2ba-1b-1"); // F20
-// var rels = TableOps.CreateHeader("y", "a2", "b2", "c2", "bcbcbc", "acacac", "abab"); // S4
-// var rels = TableOps.CreateHeader("y", "a2", "b2", "c2", "d2", "ababab", "bcbcbc", "cdcdcd", "acac", "adad", "bdbd"); // S5
+// TableOpsExt.ToddCoxeter("a", "a3, b2, abababab");
+TableOpsExt.ToddCoxeter("a, b", "a3, b2, c2, abababab, bcbcbc, acac");
 
-// var sg = TableOps.CreateHeader("a");
-// var rels = TableOps.CreateHeader("a3", "b2", "abababab");
-// var tOps = new TableOps(sg, rels);
-// tOps.ToddCoxeter();
+// TableOpsExt.ToddCoxeter("a, b", "a2, b2, c2, ababab, bcbcbc, acac"); // S4
+// TableOpsExt.ToddCoxeter("a", "a2, b2, c2, d2, ababab, bcbcbc, cdcdcd, acac, adad, bdbd"); // S5
+// TableOpsExt.ToddCoxeter("a, b, e", "a2, b2, c2, d2, e2, ababab, bcbcbc, cdcdcd, dedede, acac, adad, aeae, bdbd, bebe, cece"); // S6
 
-var sg = TableOps.CreateHeader("a", "b");
-var rels = TableOps.CreateHeader("a3", "b2", "c2", "abababab", "bcbcbc", "acac");
-var tOps = new TableOps(sg, rels);
-tOps.ToddCoxeter();
-
+// TableOpsExt.ToddCoxeter("b", "a3, b5, bab-1a-1");

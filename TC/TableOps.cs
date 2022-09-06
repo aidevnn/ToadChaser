@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace TC;
 
 public class TableOps
@@ -49,41 +51,86 @@ public class TableOps
                 opsTable[opiKey] = op.j;
                 opsTable[opjKey] = op.i;
             }
-            else
+            else if (opiCheck && opjCheck)
             {
-                if (opiCheck && opjCheck)
-                {
-                    List<string> err = new();
-                    if (opsTable[opiKey] != op.j)
-                        err.Add($"{opiKey}={opsTable[opiKey]} ~ {opiKey}={op.j}");
+                List<string> err = new();
+                if (opsTable[opiKey] != op.j)
+                    err.Add($"{opiKey}={opsTable[opiKey]} ~ {opiKey}={op.j}");
 
-                    if (opsTable[opjKey] != op.i)
-                        err.Add($"{opjKey}={opsTable[opjKey]} ~ {opjKey}={op.i}");
+                if (opsTable[opjKey] != op.i)
+                    err.Add($"{opjKey}={opsTable[opjKey]} ~ {opjKey}={op.i}");
 
-                    if (err.Count != 0)
-                        throw new Exception(err.Glue(" and ", "[{0}]"));
-                }
-                else
-                    throw new Exception("TO DO");
+                if (err.Count != 0)
+                    throw new Exception(err.Glue(" and ", "[{0}]"));
             }
+            else
+                throw new Exception("TO DO");
         }
     }
     public void BuildTable()
     {
         int sz = 0;
+        HashSet<Op> newOps = new();
+        (Symbol, Symbol) err = new();
         do
         {
-            FillClassesTable(sgTable.GetOps());
-            FillClassesTable(rTable.GetOps());
+            newOps.Clear();
             sz = sgTable.CountUnknown + rTable.CountUnknown;
-            sgTable.ApplyOp(opsTable);
-            rTable.ApplyOp(opsTable);
-        } while (sz != sgTable.CountUnknown + rTable.CountUnknown);
+            err = sgTable.ApplyOp(opsTable, newOps);
+            if (Substitute(err.Item1, err.Item2))
+                foreach (var op in newOps)
+                    ApplyOp(op);
+
+            newOps.Clear();
+            err = rTable.ApplyOp(opsTable, newOps);
+            if (Substitute(err.Item1, err.Item2))
+                foreach (var op in newOps)
+                    ApplyOp(op);
+
+        } while (newOps.Count != 0 || sz != sgTable.CountUnknown + rTable.CountUnknown);
+    }
+    bool Substitute(Symbol s0, Symbol s1)
+    {
+        if (s0 == Symbol.Unknown)
+            return true;
+
+        opsTable.Clear();
+
+        sgTable.Subtitute(s0, s1);
+        rTable.SubtituteRemove(s0, s1);
+
+        while (rTable.ContainsKey(s1.Next))
+        {
+            s0 = s1;
+            s1 = s0.Next;
+            sgTable.Subtitute(s0, s1);
+            rTable.SubtituteWithKey(s0, s1);
+        }
+
+        return false;
     }
     public void ApplyOp(Op op)
     {
-        sgTable.ApplyOp(op);
-        rTable.ApplyOp(op);
+        var opKey = new OpKey(op.i, op.g);
+        var opiKey = new OpKey(op.j, op.g.Invert());
+        if (!opsTable.ContainsKey(opKey) && !opsTable.ContainsKey(opiKey))
+        {
+            opsTable[opKey] = op.j;
+            opsTable[opiKey] = op.i;
+        }
+        else
+        {
+            if (opsTable.ContainsKey(opKey))
+            {
+                var (s0, s1) = Symbol.MinMax(op.j, opsTable[opKey]);
+                Substitute(s0, s1);
+            }
+            if (opsTable.ContainsKey(opiKey))
+            {
+                var (s0, s1) = Symbol.MinMax(op.i, opsTable[opiKey]);
+                Substitute(s0, s1);
+            }
+        }
     }
     public Op FirstOp()
     {
@@ -143,6 +190,7 @@ public class TableOps
     public void Display()
     {
         var digits = opsTable.Count == 0 ? 2 : opsTable.Max(p0 => Symbol.Max(p0.Key.i, p0.Value).ToString().Length);
+
         sgTable.Display(digits);
         rTable.Display(digits);
         DisplayTable(digits);
