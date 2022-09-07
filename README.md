@@ -255,3 +255,5 @@ Finally, $|G| = 3 \times  8 \times 24 = 576$
 ## References
 
 [Brown, Ken. The Todd-Coxeter procedure](http://www.math.cornell.edu/~kbrown/7350/toddcox.pdf)
+
+<b>Daniel Guin, Thomas Hausberger.</b> ALGÈBRE T1 Groupes, corps et théorie de Galois. 
