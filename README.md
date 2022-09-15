@@ -248,7 +248,7 @@ will output
 ####     End    ####
 ```
 
-Finally, $|G| = 3 \times  8 \times 24 = 576$
+Finally, $|G| \leq 3 \times  8 \times 24 = 576$
 
 <br>
 
