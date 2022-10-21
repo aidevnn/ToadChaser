@@ -3,6 +3,10 @@ Todd Coxeter Algorithm in CSharp for generating Cosets classes for a Subgroup H 
 
 By convention x^-1 is denoted X, uppercase character means the invert.
 
+## Moved to FastGoat Project
+
+This code is now a part of the project [FastGoat](https://github.com/aidevnn/FastGoat)
+
 ## First example
 
 ```
